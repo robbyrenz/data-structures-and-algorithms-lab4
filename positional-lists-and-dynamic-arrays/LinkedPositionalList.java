@@ -1,4 +1,8 @@
-
+/**
+ * @author Robby Renz Abeysinghe
+ * Student Number: 3073208
+ * Answer 1 of Lab 4
+ */
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -60,11 +64,34 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
 /************ ADD validate() and position() **************/
 
+    // private utilities
 
+    // validates the position & returns it as a Node
+    private Node<E> validate(Position<E> p) throws IllegalArgumentException {
+        if (!(p instanceof Node))
+            throw new IllegalArgumentException("Invalid p");
+        Node<E> node = (Node<E>) p; // safe cast
+        if (node.getNext() == null) // convention for defunct node
+            throw new IllegalArgumentException("p is no longer in the list");
+        return node;
+    }
 
-    public int size() { return size; }
+    // returns the given node as a Position (or null, if it is a sentinel)
+    private Position<E> position(Node<E> node) {
+        if (node == header || node == trailer)
+            return null; // do not expose the user to the sentinels
+        return node;
+    }
 
-    public boolean isEmpty() { return size == 0; }
+    // public accessor methods
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
     public Position<E> first() {
         return position(header.getNext());
@@ -102,6 +129,25 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
 /*** ADD addBefore() addAfter() and set() ***/
 
+    // inserts element e immediately before Position p, and returns its new Position
+    public Position<E> addBefore(Position<E> p, E e) throws IllegalArgumentException {
+        Node<E> node = validate(p);
+        return addBetween(e, node.getPrev(), node);
+    }
+
+    // inserts element e immediately after Position p, and returns its new Position
+    public Position<E> addAfter(Position<E> p, E e) throws IllegalArgumentException {
+        Node<E> node = validate(p);
+        return addBetween(e, node, node.getNext());
+    }
+
+    // replaces the element stored at Position p and returns the replaced element
+    public E set(Position<E> p, E e) throws IllegalArgumentException {
+        Node<E> node = validate(p); // TODO: why do we have to validate the position?
+        E answer = node.getElement();
+        node.setElement(e);
+        return answer;
+    }
 
 
     public E remove(Position<E> p) throws IllegalArgumentException {
