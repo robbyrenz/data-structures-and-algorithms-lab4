@@ -20,7 +20,32 @@ public class Driver {
         list.addLast(9);
         list.addLast(10);
 
-        Position cursor = list.first();
-        cursor
+        Position<Integer> cursor = list.first();
+        display(1, list, cursor);
+
+        for (int i = 0; i < 4; i++) {
+            cursor = list.after(cursor);
+        }
+        display(2, list, cursor);
+
+        list.addBefore(cursor, 8);
+        list.addAfter(cursor, 2);
+        display(3, list, cursor);
+
+        for (int i = 0; i < 2; i++)
+            cursor = list.before(cursor);
+        display(4, list, cursor);
+
+        Position after = list.after(cursor);
+        list.set(after, 0);
+        Position before = list.before(cursor);
+        /* int foo = */ list.remove(before);
+        // System.out.println(foo);
+        display(5, list, cursor);
+    }
+
+    // method to display the LinkedPositionalList contents & the Position element
+    public static void display(int i, LinkedPositionalList<Integer> list, Position cursor) {
+        System.out.println("Answer " + i + ":\n" + list + "\n" + cursor.getElement() + "\n");
     }
 }
