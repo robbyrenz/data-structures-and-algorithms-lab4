@@ -42,6 +42,29 @@ public class Driver {
         /* int foo = */ list.remove(before);
         // System.out.println(foo);
         display(5, list, cursor);
+
+        System.out.println("\nDynamic Arrays: Showing how the size increases and decreases...");
+        DynamicArray<String> newList = new DynamicArray<>(2);
+        newList.add(0, "Harry");
+        newList.add(1, "Potter");
+        System.out.println(newList.size());
+        newList.add(2, "Tom");
+        newList.add(3, "Marvolo");
+        System.out.println(newList.size());
+        newList.add(4, "Riddle");
+        System.out.println(newList.size());
+        newList.add(5, "Hegwig");
+        System.out.println(newList.size());
+        newList.add(6, "Remus");
+        System.out.println(newList.size());
+        newList.add(7, "Ron");
+        newList.add(8, "Ginny");
+        System.out.println(newList.size());
+        newList.remove(8);
+        newList.remove(0);
+        newList.remove(1);
+        newList.remove(2);
+        System.out.println(newList.size());
     }
 
     // method to display the LinkedPositionalList contents & the Position element
